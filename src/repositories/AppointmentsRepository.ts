@@ -2,27 +2,31 @@ import { isEqual } from 'date-fns'
 import Appoitment from '../models/Appointment'
 
 class AppointmentsRepository {
-  private appointments: Appoitment[]
+    private appointments: Appoitment[]
 
-  constructor() {
-    this.appointments = []
-  }
+    constructor() {
+        this.appointments = []
+    }
 
-  public findByDate(date: Date): Appoitment | null {
-    const findAppointment = this.appointments.find(appointment =>
-      isEqual(date, appointment.date),
-    )
+    public all(): Appoitment[] {
+        return this.appointments
+    }
 
-    return findAppointment || null
-  }
+    public findByDate(date: Date): Appoitment | null {
+        const findAppointment = this.appointments.find(appointment =>
+            isEqual(date, appointment.date),
+        )
 
-  public create(provider: string, date: Date): Appoitment {
-    const appointment = new Appoitment(provider, date)
+        return findAppointment || null
+    }
 
-    this.appointments.push(appointment)
+    public create(provider: string, date: Date): Appoitment {
+        const appointment = new Appoitment(provider, date)
 
-    return appointment
-  }
+        this.appointments.push(appointment)
+
+        return appointment
+    }
 }
 
 export default AppointmentsRepository
